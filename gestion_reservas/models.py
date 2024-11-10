@@ -6,7 +6,7 @@ class Reserva(models.Model):
     pista = models.ForeignKey('gestion_pistas.Pista', on_delete=models.CASCADE)
     date = models.DateField()
     def __str__(self):
-        return f'{self.client} - {self.pista} - {self.date}'
+        return f'{self.pista} - {self.date}'
     @property
     def total(self):
         return self.pista.price if self.pista else 0.0
