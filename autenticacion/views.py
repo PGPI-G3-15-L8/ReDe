@@ -1,40 +1,36 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import UserRegistrationForm
-from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserRegistrationForm, UserLoginForm
+from django.contrib.auth.models import User
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            usuario = form.save()
-            login(request, usuario)
+            dni = form.cleaned_data['dni']
+            password = form.cleaned_data['password']
+            User.objects.create_user(username=dni, password=password)
             messages.success(request, "¡Registro completado con éxito!")
-            return redirect('home')
-        else:
-            messages.error(request, "Error en el formulario. Verifique los datos.")
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'autenticacion/register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = UserLoginForm(request.POST)
         if form.is_valid():
-            nombre = form.cleaned_data.get('username')
-            clave = form.cleaned_data.get('password')
-            usuario = authenticate(username=nombre, password=clave)
-            if usuario is not None:
-                login(request, usuario)
-                messages.success(request, f"Bienvenido {nombre}")
+            dni = form.cleaned_data.get('dni')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=dni, password=password)
+            if user:
+                login(request, user)
                 return redirect('home')
             else:
                 messages.error(request, "Credenciales incorrectas")
-        else:
-            messages.error(request, "Error en el formulario")
     else:
-        form = AuthenticationForm()
+        form = UserLoginForm()
     return render(request, 'autenticacion/login.html', {'form': form})
 
 def user_logout(request):
