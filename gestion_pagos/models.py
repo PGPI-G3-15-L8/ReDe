@@ -6,9 +6,11 @@ class Pago(models.Model):
     status = models.CharField(max_length=50)
     metodo_pago = models.CharField(max_length=50)
     reserva = models.ForeignKey('gestion_reservas.Reserva', on_delete=models.CASCADE)
+    '''
     @property
     def total(self):
         return self.reserva.total if self.reserva else 0.0
+    '''
     class Meta:
         db_table = 'pagos'
         verbose_name = 'pago'
