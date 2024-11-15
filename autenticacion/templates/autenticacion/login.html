@@ -1,0 +1,9 @@
+<h2>Iniciar Sesión</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Iniciar Sesión</button>
+</form>
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
