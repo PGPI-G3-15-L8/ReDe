@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'gestion_pistas',
     'gestion_pagos',
     'web_app',
+    'home',
     'contacto',
 ]
 
@@ -129,7 +130,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'  # URL pública para acceder a los archivos estáticos
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Directorio donde estarán tus archivos estáticos en desarrollo
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directorio para recolectar los archivos estáticos en producción
+STATIC_URL = '/static/'  # URL pública para acceder a los archivos estáticos
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Directorio donde estarán tus archivos estáticos en desarrollo
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directorio para recolectar los archivos estáticos en producción
 
 #para cargar imagenes
 MEDIA_URL = '/media/'

@@ -1,15 +1,87 @@
-<div>
-    {% if "valido" in request.GET %}
-        <p style="color: black;">Formulario enviado correctamente</p>
-    {% endif %}
-    {% if "no_valido" in request.GET %}
-        <p style="color: white;">Formulario no enviado, se produjo un error</p>
-    {% endif %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table style="color: white; margin: 20px auto;">
-            {{ contacto.as_table }}
-        </table>
-        <input type="submit" value="Enviar" class="btn btn-success">
-    </form>
-</div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-20 w-20 mr-2">
+                    <a href="/" class="text-2xl font-bold text-blue-600">ReDe</a>
+                </div>
+                <!-- Empty Right Section -->
+                <div>
+                    <div>
+                        <a href="/" class="ml-4 text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Section -->
+    <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('{% static 'images/fondo.jpg' %}');">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <!-- Contact Form Container -->
+            <div class="bg-white shadow-lg rounded-lg max-w-lg w-full flex flex-col items-center p-6">
+                <!-- Header Section -->
+                <div class="flex flex-col items-center">
+                    <img src="{% static 'images/escudo.png' %}" alt="Escudo del Ayuntamiento" class="h-auto w-16 mb-4">
+                    <h2 class="text-2xl font-bold text-blue-600">Formulario de Contacto</h2>
+                    <p class="mt-4 text-sm text-gray-800 text-center">Envíanos tu problema y contactaremos para ayudarle lo antes posible</p>
+                </div>
+                <!-- Form Section -->
+                <form action="" method="POST" class="w-full mt-6 space-y-4">
+                    {% csrf_token %}
+                    <!-- Display messages -->
+                    {% if 'valido' in request.GET %}
+                        <p class="text-green-500 text-center">Formulario enviado correctamente.</p>
+                    {% endif %}
+                    {% if 'no_valido' in request.GET %}
+                        <p class="text-red-500 text-center">Formulario no enviado, se produjo un error.</p>
+                    {% endif %}
+                    
+                    <!-- Name Field -->
+                    <div class="flex flex-col items-center">
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required
+                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="flex flex-col items-center">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <!-- Content Field -->
+                    <div class="flex flex-col items-center">
+                        <label for="contenido" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                        <textarea id="contenido" name="contenido" required rows="1"
+                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm resize-none"
+                            oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px';"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
