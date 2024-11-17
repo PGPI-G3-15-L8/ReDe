@@ -1,0 +1,15 @@
+<div>
+    {% if "valido" in request.GET %}
+        <p style="color: black;">Formulario enviado correctamente</p>
+    {% endif %}
+    {% if "no_valido" in request.GET %}
+        <p style="color: white;">Formulario no enviado, se produjo un error</p>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table style="color: white; margin: 20px auto;">
+            {{ contacto.as_table }}
+        </table>
+        <input type="submit" value="Enviar" class="btn btn-success">
+    </form>
+</div>

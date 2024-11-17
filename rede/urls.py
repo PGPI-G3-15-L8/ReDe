@@ -26,4 +26,5 @@ urlpatterns = [
     path('reservas/crear/', crear_reserva_view, name='crear_reserva'),
     path('reservas/modificar/<int:reserva_id>/', modificar_reserva_view, name='modificar_reserva'),
     path('reservas/eliminar/<int:reserva_id>/', eliminar_reserva_view, name='eliminar_reserva'),
+    path('contacto/', include('contacto.urls')),
     ]
