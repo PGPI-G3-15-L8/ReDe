@@ -1,0 +1,42 @@
+<h1>Lista de Reservas</h1>
+  <div id="reservas-container">
+    {% for reserva in reservas %}
+  <div id="reserva-{{reserva.id}}">
+        <p><strong>Pista:</strong> {{ reserva.espacio }}</p>
+        <p><strong>Inicio:</strong> {{ reserva.momento_inicio }}</p>
+        <p><strong>Fin:</strong> {{ reserva.momento_fin }}</p>
+        <button class="eliminar-reserva-btn" data-id="{{ reserva.id }}">Eliminar</button>
+        <button class="editar-reserva-btn" data-id="{{ reserva.id }}"
+          data-momento_inicio="{{ reserva.momento_inicio|date:'Y-m-d\TH:i' }}"
+          data-momento_fin="{{ reserva.momento_fin|date:'Y-m-d\TH:i' }}"
+          data-espacio="{{ reserva.espacio }}">Editar</button>
+        <hr>
+      </div>
+        {% empty %}
+          <p>No hay reservas disponibles.</p>
+    {% endfor %}
+  </div>
+
+<h2>Crear o editar una reserva</h2>
+  <form id="crear-reserva-form">
+    {% csrf_token %}
+    <label for="momento_inicio">Momento Inicio:</label>
+    <input type="datetime-local" id="momento_inicio" name="momento_inicio" required>
+    <br>
+    <label for="momento_fin">Momento Fin:</label>
+    <input type="datetime-local" id="momento_fin" name="momento_fin" required>
+    <br>
+    <label for="espacio">Espacio:</label>
+    <select id="espacio" name="espacio" required>
+    <option value="Fútbol">Fútbol</option>
+    <option value="Baloncesto">Baloncesto</option>
+    <option value="Padel">Padel</option>
+    <option value="Piscina1">Piscina 1</option>
+    <option value="Piscina2">Piscina 2</option>
+    </select>
+    <br>
+    <input type="hidden" id="reserva-id" name="reserva-id">
+    <button type="submit">Guardar cambios</button>
+  </form>
+
+<script src="/static/gestion_reservas.js"></script>

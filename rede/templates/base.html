@@ -53,11 +53,13 @@
     <footer class="bg-white rounded-lg shadow dark:bg-gray-700 m-4">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
-                <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="{% static 'images/logo.png' %}" class="h-24" alt="ReDe Logo" />
+                <!-- Logo y Título alineados a la izquierda -->
+                <div class="flex flex-col items-start mb-4 sm:mb-0">
+                    <img src="{% static 'images/logo.png' %}" class="h-24 mb-2" alt="ReDe Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ReDe</span>
-                </a>
-                <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                </div>
+                <!-- Enlaces de navegación -->
+                <ul class="flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
                         <a href="/about" class="hover:underline me-4 md:me-6">Sobre nosotros</a>
                     </li>
@@ -73,6 +75,7 @@
             <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="/" class="hover:underline">ReDe™</a>. Todos los derechos reservados.</span>
         </div>
     </footer>
+
      <!-- Cookie Consent -->
      <div id="cookie-consent" class="fixed bottom-4 right-4 bg-white shadow-md rounded-lg p-4 flex items-center justify-between max-w-md z-50 hidden">
         <div class="flex-1">
