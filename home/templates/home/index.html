@@ -1,41 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-20 w-20 mr-2">
-                    <a href="/" class="text-2xl font-bold text-blue-600">ReDe</a>
-                </div>
-                <!-- Buttons -->
-                <div>
-                    {% if user.is_authenticated %}
-                        <!-- Botón de cerrar sesión -->
-                        <form method="post" action="/logout/" class="inline">
-                            {% csrf_token %}
-                            <button type="submit" class="ml-4 text-white bg-red-500 py-2 px-4 rounded hover:bg-red-600">Cerrar sesión</button>
-                        </form>
-                    {% else %}
-                        <!-- Botón de iniciar sesión -->
-                        <a href="/login" class="ml-4 text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600">Iniciar sesión</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </nav>
+{% block title %}Inicio | ReDe{% endblock %}
 
-    <!-- Hero Section -->
+{% block main_classes %}mt-0{% endblock %}
+
+{% block content %}
     <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('{% static 'images/fondo.jpg' %}');">
         <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center">
             <!-- Escudo del pueblo -->
@@ -51,7 +20,6 @@
 
     <!-- Example Extra Content -->
     <div class="bg-gray-200 py-16">
-        <!-- New Sections -->
         <!-- Section 1 -->
         <div class="bg-gray-100 flex flex-col md:flex-row items-center py-16 px-4 max-w-7xl mx-auto">
             <div class="flex-1 md:pr-8">
@@ -93,56 +61,5 @@
                 <img src="{% static 'images/section3.jpg' %}" alt="Comunidad" class="rounded-lg shadow-lg">
             </div>
         </div>
-        {% comment %} <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-lg text-gray-700">Estamos trabajando en mejorar nuestra web.</p>
-        </div> {% endcomment %}
     </div>
-    </div>
-
-    <!-- Cookie Consent -->
-    <div id="cookie-consent" class="fixed bottom-4 right-4 bg-white shadow-md rounded-lg p-4 flex items-center justify-between max-w-md z-50 hidden">
-        <div class="flex-1">
-            <p class="text-sm text-gray-700">
-                Utilizamos cookies para asegurarnos de brindarte la mejor experiencia en nuestro sitio web. Consulta nuestra <a href="/privacy-policy" class="text-blue-500 underline">Política de Privacidad</a>.
-            </p>
-        </div>
-        <div class="flex-shrink-0 ml-4">
-            <button id="accept-cookies" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Aceptar</button>
-        </div>
-    </div>
-
-    <footer class="bg-gray-800 text-white py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <!-- Left Section -->
-            <div class="flex flex-col items-center md:items-center">
-                <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-24 w-24 mb-2">
-                <h2 class="text-3xl font-bold">ReDe</h2>
-            </div>
-            <!-- Right Section -->
-            <div class="mt-6 md:mt-0 flex flex-col md:items-end">
-                <a href="/contacto" class="text-sm text-gray-400 hover:text-white">Contacto</a>
-                <a href="/privacy-policy" class="text-sm text-gray-400 hover:text-white mt-2">Política de Privacidad</a>
-                <a href="/about" class="text-sm text-gray-400 hover:text-white mt-2">Quiénes Somos</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cookieConsent = document.getElementById('cookie-consent');
-            const acceptCookies = document.getElementById('accept-cookies');
-
-            if (!localStorage.getItem('cookiesAccepted')) {
-                cookieConsent.classList.remove('hidden'); // Muestra el panel
-            }
-
-            acceptCookies.addEventListener('click', function () {
-                localStorage.setItem('cookiesAccepted', 'true'); // Guarda la aceptación
-                cookieConsent.classList.add('hidden'); // Oculta el panel
-            });
-        });
-    </script>
-</body>
-</html>
+{% endblock %}
