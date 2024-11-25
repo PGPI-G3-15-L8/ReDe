@@ -1,7 +1,7 @@
 # views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Reserva, Espacio
+from .models import Reserva, Espacio, Fianza
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
@@ -12,6 +12,7 @@ import json
 # TODO: descomentar los login_required
 # @login_required
 def reservas_view(request):
+    User.objects.get_or_create(username='testuser')
     user = User.objects.filter(username='testuser').first()
     # reservas = Reserva.objects.filter(user_id=request.user)
     reservas = Reserva.objects.filter(user_id = user)
@@ -20,6 +21,7 @@ def reservas_view(request):
 # @login_required
 def crear_reserva_view(request):
     # en el formulario hay que usar el formato '2024-01-01T14:00:00''
+    User.objects.get_or_create(username='testuser')
     data = json.loads(request.body)
     momento_inicio = data.get('momento_inicio')
     momento_fin = data.get('momento_fin')
@@ -49,6 +51,11 @@ def crear_reserva_view(request):
         created_at=created_at
     )
 
+    # aumentar la fianza del user en 5 euros (ya se ha hecho el evaluate_post por lo que el objeto Fianza existe y no hace falta usear el get_or_create):
+    fianza = Fianza.objects.get(user_id=user)
+    fianza.cantidad += 5
+    fianza.save()
+
     return JsonResponse({
         "id": reserva.id,
         "momento_inicio": reserva.momento_inicio,
@@ -60,6 +67,7 @@ def crear_reserva_view(request):
 # @login_required
 def modificar_reserva_view(request, reserva_id):
     # reserva = Reserva.objects.get(id=reserva_id, user_id=request.user)
+    User.objects.get_or_create(username='testuser')
     user = User.objects.filter(username='testuser').first()
     reserva = Reserva.objects.get(id=reserva_id, user_id = user)
     data = json.loads(request.body)
@@ -92,6 +100,7 @@ def modificar_reserva_view(request, reserva_id):
 # @login_required
 def eliminar_reserva_view(request, reserva_id):
     # reserva = Reserva.objects.get(id=reserva_id, user_id=request.user)
+    User.objects.get_or_create(username='testuser')
     user = User.objects.filter(username='testuser').first()
     reserva = Reserva.objects.get(id=reserva_id, user_id = user)
     reserva.delete()
@@ -111,6 +120,10 @@ def evaluate(pista_str):
             return Espacio.PISCINA2
 
 def validate_post(user, momento_inicio, momento_fin, espacio):
+    fianza = Fianza.objects.get_or_create(user_id=user)[0]
+    if fianza.cantidad >= 25:
+        return JsonResponse({"error": "Tu fianza es igual o mayor a 25 euros"})
+
     if momento_fin - momento_inicio != timedelta(hours=1):
         return JsonResponse({"error": "La reserva debe durar una hora"})
     if Reserva.objects.filter(user_id=user).count() >= 10:

@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import yagmail
 import keyring
+from keyrings.alt.file import PlaintextKeyring
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,11 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'autenticacion',
-    'carro_compra',
     'gestion_reservas',
     'gestion_pistas',
-    'gestion_pagos',
-    'web_app',
     'home',
     'contacto',
 ]
@@ -150,6 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # configuración de correo electronico
 # Configuración de correo electrónico
+keyring.set_keyring(PlaintextKeyring())
 yagmail.register('atencion.contacto.rede@gmail.com', 'zrzv rcdf iaja okwg')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
