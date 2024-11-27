@@ -104,6 +104,9 @@ def eliminar_reserva_view(request, reserva_id):
     user = User.objects.filter(username='testuser').first()
     reserva = Reserva.objects.get(id=reserva_id, user_id = user)
     reserva.delete()
+    fianza = Fianza.objects.get_or_create(user_id=user)[0]
+    fianza.cantidad -= 5
+    fianza.save()
     return JsonResponse({"success": True}, status=200)
 
 def evaluate(pista_str):
