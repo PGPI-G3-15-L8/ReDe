@@ -19,16 +19,19 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = UserLoginForm(request.POST)
+        form = UserLoginForm(data=request.POST)
         if form.is_valid():
             dni = form.cleaned_data.get('dni')
-            password = form.cleaned_data.get('password')
+            password = form.cleaned_data['password']
             user = authenticate(username=dni, password=password)
             if user:
                 login(request, user)
+                messages.success(request, "Inicio de sesión exitoso. ¡Bienvenido!")
                 return redirect('home')
             else:
                 messages.error(request, "Credenciales incorrectas")
+        else:
+            messages.error(request, "Credenciales incorrectas")
     else:
         form = UserLoginForm()
     return render(request, 'autenticacion/login.html', {'form': form})
