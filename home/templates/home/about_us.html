@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre Nosotros | ReDe{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Título de la Página -->
+    <h1 class="text-4xl font-bold text-gray-800 mb-6">Sobre Nosotros</h1>
+
+    <!-- Sección: Quiénes Somos -->
+    <section class="mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Quiénes Somos</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Somos un equipo apasionado de desarrolladores y entusiastas del deporte dedicados a mejorar la experiencia de reserva de instalaciones deportivas en Villanueva de las Cruces. Nuestro objetivo es facilitar el acceso y la gestión de las instalaciones deportivas para todos los residentes.
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <img src='{% static 'images/foto_equipo.jpeg' %}' alt="Foto del Equipo" class="rounded-lg shadow-lg max-w-full max-h-96 object-contain">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Nuestra Misión -->
+    <section class="mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div class="flex justify-center">
+                <img src='{% static 'images/foto_gestion.png' %}' alt="Foto de nuestra misión" class="rounded-lg shadow-lg max-w-full max-h-96 object-contain">
+            </div>
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Nuestra Misión</h2>
+                <p class="text-gray-700">
+                    Nuestra misión es proporcionar una plataforma intuitiva y eficiente que permita a los usuarios reservar instalaciones deportivas de manera sencilla, promoviendo un estilo de vida activo y saludable en nuestra comunidad.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: El Proyecto ReDe -->
+    <section class="mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">El Proyecto ReDe</h2>
+                <p class="text-gray-700">
+                   ReDe es una aplicación web diseñada para simplificar el proceso de reserva de instalaciones deportivas en Villanueva de las Cruces. Utilizando tecnologías modernas hemos creado una interfaz amigable y responsive que se adapta a las necesidades de nuestros usuarios.
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <img src='{% static 'images/escudo.png' %}' alt="Ayuntamiento de Villanueva de las Cruces" class="rounded-lg max-w-full max-h-96 object-contain bg-transparent">
+            </div>
+        </div>
+    </section>
+
+   
+   <!-- Sección: Nuestro Equipo -->
+<section class="mb-10">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Nuestro Equipo</h2>
+    <div class="grid grid-cols-2 gap-6">
+        <!-- Miembro del Equipo 1 -->
+        <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-full h-48 aspect-[3/4] rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/alfonso.jpeg' %}" alt="Alfonso Luis Alonso Lanzarán">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Alfonso Luis Alonso Lanzarán</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Director y jefe de proyecto, llevo la planificación y la coordinación del equipo de trabajo durante el desarrollo, 
+                    también me encargo de hablar con el cliente y tomar las decisiones más críticas.</p>
+            </div>
+        </a>
+        <!-- Miembro del Equipo 2 -->
+        <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-full h-48 aspect-[3/4] rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/pablo.jpeg' %}" alt="Pablo Caballero María">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Pablo Caballero María</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">He tenido el rol de analista-programador, implementando la función de gestión de reservas, 
+                    que permite listar, crear, actualizar y eliminar reservas.</p>
+            </div>
+        </a>
+        <!-- Miembro del Equipo 3 -->
+        <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-full h-48 aspect-[3/4] rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/riki.JPG' %}" alt="Ricardo Carreño Mariño">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ricardo Carreño Mariño</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Analista programador, encargándome de diseñar e implementar el sitio web. Realicé la estructura y el diseño visual, 
+                    enfocándome en la experiencia del usuario, y convertí ese diseño en código funcional para que fuese una web interactiva.</p>
+            </div>
+        </a>
+        <!-- Miembro del Equipo 4 -->
+        <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-full h-48 aspect-[3/4] rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/toni.jpeg' %}" alt="Antonio Daniel Porcar Aragón">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Antonio Daniel Porcar Aragón</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Desarrollador full stack encargado del diseño e implementación de la base de datos y del formulario de contacto. 
+                    Además realicé el despliegue de la aplicación.</p>
+            </div>
+        </a>
+    </div>
+    <!-- Centrar al último miembro -->
+    <div class="flex justify-center mt-6">
+        <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-full h-48 aspect-[3/4] rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/ale.jpeg' %}" alt="Alejandro Aragón Sánchez">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Alejandro Aragón Sánchez</h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Desarrollador web full stack, diseño e implementación del registro y login, además de sus posteriores pruebas de calidad.</p>
+            </div>
+        </a>
+    </div>
+</section>
+</div>
+{% endblock %}

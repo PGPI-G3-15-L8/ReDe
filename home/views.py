@@ -6,3 +6,6 @@ def home_view(request):
 
 def privacy_policy_view(request):
     return render(request, 'home/privacy_policy.html')
+
+def about_us_view(request):
+    return render(request, 'home/about_us.html')
