@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+import re
 
 class UserLoginForm(forms.Form):
     dni = forms.CharField(label="DNI", max_length=9)
@@ -27,6 +28,10 @@ class UserRegistrationForm(forms.ModelForm):
 
     def clean_dni(self):
         dni = self.cleaned_data.get('dni')
+
+        if not re.match(r'^[0-9]{8}[A-Za-z]$', dni):
+            raise forms.ValidationError("Formato de DNI inválido.")
+        
         if User.objects.filter(username=dni).exists():
             raise forms.ValidationError("Este DNI ya está registrado.")
         return dni

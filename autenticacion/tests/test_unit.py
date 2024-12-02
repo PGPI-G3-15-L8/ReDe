@@ -17,6 +17,11 @@ class UserLoginFormTestCase(TestCase):
         form = UserLoginForm(data={'dni': '', 'password': 'password123'})
         self.assertFalse(form.is_valid())
 
+    def test_invalid_password(self):
+        form = UserLoginForm(data={'dni': '12345678A', 'password': 'wrongpassword'})
+        self.assertFalse(form.is_valid())
+
+
 class UserRegistrationFormTestCase(TestCase):
     def test_valid_registration_form(self):
         form = UserRegistrationForm(data={
@@ -42,6 +47,11 @@ class UserRegistrationFormTestCase(TestCase):
             'confirm_password': 'password123'
         })
         self.assertFalse(form.is_valid())
+
+    def test_invalid_dni_format(self):
+        form = UserRegistrationForm(data={'dni': '12345', 'password': 'password123', 'confirm_password': 'password123'})
+        self.assertFalse(form.is_valid())
+
 
 # Tests para vistas
 class RegisterViewTestCase(TestCase):
