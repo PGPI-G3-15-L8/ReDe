@@ -33,8 +33,7 @@ SECRET_KEY = 'django-insecure-nt1qd^f1-2jmee77(n9ymh+^i3q%7%&r0_z-8m2$5vu+tbbs_b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['rede-ev42.onrender.com', '127.0.0.1']
 
 # Application definition
 
@@ -48,25 +47,31 @@ INSTALLED_APPS = [
     'autenticacion',
     'gestion_reservas',
     'gestion_pistas',
+    'home',
     'contacto',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'rede.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'autenticacion/templates')],
+        'DIRS': [BASE_DIR / 'rede/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,7 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'  # URL pública para acceder a los archivos estáticos
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Directorio donde estarán tus archivos estáticos en desarrollo
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directorio para recolectar los archivos estáticos en producción
 
 #para cargar imagenes
 MEDIA_URL = '/media/'

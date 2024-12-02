@@ -4,3 +4,5 @@ sqlparse==0.5.1
 yagmail==0.15.293
 keyring==25.5.0
 keyrings.alt
+gunicorn==23.0.0
+whitenoise==6.8.2
