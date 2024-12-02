@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ReDe{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/logo_ico.ico' %}" type="image/x-icon">
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto px-4 py-4">
+            <!-- Logo and Title -->
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-20">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ReDe</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+                <ul class="flex flex-col md:flex-row md:space-x-8 font-medium mt-4 md:mt-0 border border-gray-100 md:border-0 bg-gray-50 md:bg-white rounded-lg md:rounded-none dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+                    <li>
+                        <a href="/" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Inicio</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <!-- Dropdown for Reservas -->
+                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                            Reservas
+                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownNavbarLink">
+                                <li>
+                                    <a href="/reservas" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mis reservas</a>
+                                </li>
+                                {% comment %} <li>
+                                    <a href="/reservas/activas" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reservas Activas</a>
+                                </li>
+                                <li>
+                                    <a href="/reservas/historial" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Historial</a>
+                                </li> {% endcomment %}
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="/contacto" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contacto</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <form method="post" action="/logout/" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="text-white bg-red-500 py-2 px-4 rounded hover:bg-red-600">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li>
+                            {% if request.path != '/login/' %}
+                            <a href="/login" class="text-white bg-blue-500 py-2 px-4 rounded hover:bg-blue-600 inline-block text-center">Iniciar sesión</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="{% block main_classes %}mt-20{% endblock %}">
+        {% block content %}
+        <!-- Aquí se insertará el contenido específico de cada página -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-lg border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <img src="{% static 'images/logo.png' %}" class="h-16" alt="ReDe Logo" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ReDe</span>
+                </a>
+                <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                    <li>
+                        <a href="/about-us" class="hover:underline me-4 md:me-6">Sobre nosotros</a>
+                    </li>
+                    <li>
+                        <a href="/privacy-policy" class="hover:underline me-4 md:me-6">Política de privacidad</a>
+                    </li>
+                    <li>
+                        <a href="/contacto" class="hover:underline">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="/" class="hover:underline">ReDe™</a>. Todos los derechos reservados.</span>
+        </div>
+    </footer>
+
+     <!-- Cookie Consent -->
+     <div id="cookie-consent" class="fixed bottom-4 right-4 bg-white shadow-md rounded-lg p-4 flex items-center justify-between max-w-md z-50 hidden">
+        <div class="flex-1">
+            <p class="text-sm text-gray-700">
+                Utilizamos cookies para asegurarnos de brindarte la mejor experiencia en nuestro sitio web. Consulta nuestra <a href="/privacy-policy" class="text-blue-500 underline">Política de Privacidad</a>.
+            </p>
+        </div>
+        <div class="flex-shrink-0 ml-4">
+            <button id="accept-cookies" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptCookies = document.getElementById('accept-cookies');
+
+            if (!localStorage.getItem('cookiesAccepted')) {
+                cookieConsent.classList.remove('hidden'); // Muestra el panel
+            }
+
+            acceptCookies.addEventListener('click', function () {
+                localStorage.setItem('cookiesAccepted', 'true'); // Guarda la aceptación
+                cookieConsent.classList.add('hidden'); // Oculta el panel
+            });
+        });
+    </script>
+</body>
+</html>

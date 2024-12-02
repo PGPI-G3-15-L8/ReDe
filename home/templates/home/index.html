@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Inicio | ReDe{% endblock %}
+
+{% block main_classes %}mt-0{% endblock %}
+
+{% block content %}
+    <div class="relative w-full h-screen bg-cover bg-center" style="background-image: url('{% static 'images/fondo.jpg' %}');">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center">
+            <!-- Escudo del pueblo -->
+            <img src="{% static 'images/escudo.png' %}" alt="Escudo del Pueblo" class="h-auto w-32 mb-4">
+            
+            <!-- Título principal -->
+            <h1 class="text-4xl font-extrabold text-white">Bienvenido/a a ReDe</h1>
+            
+            <!-- Subtítulo -->
+            <p class="mt-4 text-lg text-gray-300">Reservas Deportivas para Villanueva de las Cruces</p>
+        </div>
+    </div>
+
+    <!-- Example Extra Content -->
+    <div class="bg-gray-200 py-16">
+        <!-- Section 1 -->
+        <div class="bg-gray-100 flex flex-col md:flex-row items-center py-16 px-4 max-w-7xl mx-auto">
+            <div class="flex-1 md:pr-8">
+                <h2 class="text-3xl font-bold text-blue-600">Reserva Instalaciones Deportivas</h2>
+                <p class="mt-4 text-gray-700">
+                    Encuentra y reserva instalaciones deportivas en tu pueblo con facilidad y rapidez. Nuestra aplicación está diseñada para que puedas planificar tu tiempo deportivo sin complicaciones.
+                </p>
+            </div>
+            <div class="flex-1">
+                <img src="{% static 'images/section1.jpg' %}" alt="Reserva" class="rounded-lg shadow-lg">
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="bg-gray-100 flex flex-col md:flex-row-reverse items-center py-16 px-4 max-w-7xl mx-auto">
+            <div class="flex-1 md:pl-8">
+                <h2 class="text-3xl font-bold text-blue-600">Gestiona tus Reservas</h2>
+                <p class="mt-4 text-gray-700">
+                    Revisa y administra tus reservas activas desde cualquier dispositivo. Recibe notificaciones sobre tus próximas actividades y aprovecha al máximo tu tiempo.
+                </p>
+            </div>
+            <div class="flex-1">
+                <video controls class="rounded-lg shadow-lg w-full">
+                    <source src="{% static 'videos/section2.mp4' %}" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="bg-gray-100 flex flex-col md:flex-row items-center py-16 px-4 max-w-7xl mx-auto">
+            <div class="flex-1 md:pr-8">
+                <h2 class="text-3xl font-bold text-blue-600">Conecta con tu Comunidad</h2>
+                <p class="mt-4 text-gray-700">
+                    Participa en actividades comunitarias y conoce a otros entusiastas del deporte en Villanueva de las Cruces. Nuestra plataforma te conecta con eventos locales.
+                </p>
+            </div>
+            <div class="flex-1">
+                <img src="{% static 'images/section3.jpg' %}" alt="Comunidad" class="rounded-lg shadow-lg">
+            </div>
+        </div>
+    </div>
+{% endblock %}

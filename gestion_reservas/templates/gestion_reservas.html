@@ -1,42 +1,89 @@
-<h1>Lista de Reservas</h1>
-  <div id="reservas-container">
-    {% for reserva in reservas %}
-  <div id="reserva-{{reserva.id}}">
-        <p><strong>Pista:</strong> {{ reserva.espacio }}</p>
-        <p><strong>Inicio:</strong> {{ reserva.momento_inicio }}</p>
-        <p><strong>Fin:</strong> {{ reserva.momento_fin }}</p>
-        <button class="eliminar-reserva-btn" data-id="{{ reserva.id }}">Eliminar</button>
-        <button class="editar-reserva-btn" data-id="{{ reserva.id }}"
-          data-momento_inicio="{{ reserva.momento_inicio|date:'Y-m-d\TH:i' }}"
-          data-momento_fin="{{ reserva.momento_fin|date:'Y-m-d\TH:i' }}"
-          data-espacio="{{ reserva.espacio }}">Editar</button>
-        <hr>
-      </div>
-        {% empty %}
-          <p>No hay reservas disponibles.</p>
-    {% endfor %}
-  </div>
+{% extends 'base.html' %}
+{% load static %}
 
-<h2>Crear o editar una reserva</h2>
-  <form id="crear-reserva-form">
-    {% csrf_token %}
-    <label for="momento_inicio">Momento Inicio:</label>
-    <input type="datetime-local" id="momento_inicio" name="momento_inicio" required>
-    <br>
-    <label for="momento_fin">Momento Fin:</label>
-    <input type="datetime-local" id="momento_fin" name="momento_fin" required>
-    <br>
-    <label for="espacio">Espacio:</label>
-    <select id="espacio" name="espacio" required>
-    <option value="Fútbol">Fútbol</option>
-    <option value="Baloncesto">Baloncesto</option>
-    <option value="Padel">Padel</option>
-    <option value="Piscina1">Piscina 1</option>
-    <option value="Piscina2">Piscina 2</option>
-    </select>
-    <br>
-    <input type="hidden" id="reserva-id" name="reserva-id">
-    <button type="submit">Guardar cambios</button>
-  </form>
+{% block title %}Gestión de Reservas | ReDe{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <!-- Título de la Página -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestión de Reservas</h1>
+
+    <!-- Sección de Mis Reservas -->
+  <section class="mb-10 relative">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Mis Reservas</h2>
+    <div class="flex items-center">
+        <!-- Botón para desplazar hacia la izquierda -->
+        <button id="scroll-left" class="hidden md:block bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none mr-2 z-10 absolute left-0 transform -translate-y-1/2" style="top: 50%;">
+            <!-- Ícono de flecha izquierda (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- Contenedor desplazable -->
+        <div id="reservas-container" class="flex space-x-4 overflow-x-auto scroll-smooth scrollbar-hide mx-10">
+            {% for reserva in reservas %}
+            <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-shrink-0" style="width: 300px;">
+                <img class="w-full h-48 object-cover rounded-t-lg" src="{% static 'images/'|add:reserva.espacio|lower|add:'.jpg' %}" alt="{{ reserva.espacio }}" />
+                <div class="p-5">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Reserva de {{ reserva.espacio }}</h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        Inicio: {{ reserva.momento_inicio|date:"d/m/Y H:i" }}<br>
+                        Fin: {{ reserva.momento_fin|date:"d/m/Y H:i" }}
+                    </p>
+                    <div class="flex justify-between">
+                        <button data-id="{{ reserva.id }}" data-momento_inicio="{{ reserva.momento_inicio|date:'Y-m-d\\TH:i' }}" data-momento_fin="{{ reserva.momento_fin|date:'Y-m-d\\TH:i' }}" data-espacio="{{ reserva.espacio }}" class="editar-reserva-btn text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-4 py-2">
+                            Modificar
+                        </button>
+                        <button data-id="{{ reserva.id }}" class="eliminar-reserva-btn text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-2">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-600">No tienes reservas actualmente.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Botón para desplazar hacia la derecha -->
+        <button id="scroll-right" class="hidden md:block bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none ml-2 z-10 absolute right-0 transform -translate-y-1/2" style="top: 50%;">
+            <!-- Ícono de flecha derecha (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+  </section>
+
+    <!-- Sección de Crear/Editar Reserva -->
+    <section id="crear-editar-reserva">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Crear o Editar Reserva</h2>
+        <form id="crear-reserva-form" class="bg-white p-6 rounded-lg shadow-md space-y-6">
+            {% csrf_token %}
+            <input type="hidden" id="reserva-id" name="reserva-id" value="">
+            <div>
+                <label for="espacio" class="block text-sm font-medium text-gray-700">Espacio</label>
+                <select id="espacio" name="espacio" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="Fútbol">Fútbol</option>
+                    <option value="Baloncesto">Baloncesto</option>
+                    <option value="Padel">Padel</option>
+                    <option value="Piscina1">Piscina 1</option>
+                    <option value="Piscina2">Piscina 2</option>
+                </select>
+            </div>
+            <div>
+                <label for="momento_inicio" class="block text-sm font-medium text-gray-700">Inicio</label>
+                <input type="datetime-local" id="momento_inicio" name="momento_inicio" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="momento_fin" class="block text-sm font-medium text-gray-700">Fin</label>
+                <input type="datetime-local" id="momento_fin" name="momento_fin" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Guardar</button>
+        </form>
+    </section>
+</div>
 
 <script src="/static/gestion_reservas.js"></script>
+{% endblock %}
