@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+import re
 
 class UserLoginForm(forms.Form):
     dni = forms.CharField(label="DNI", max_length=9)
