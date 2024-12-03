@@ -57,7 +57,7 @@
   </section>
 
     <!-- Sección de Crear/Editar Reserva -->
-    <section id="crear-editar-reserva">
+    <section id="crear-editar-reserva" class="mb-10">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Crear o Editar Reserva</h2>
         <form id="crear-reserva-form" class="bg-white p-6 rounded-lg shadow-md space-y-6">
             {% csrf_token %}
@@ -78,7 +78,7 @@
             </div>
             <div>
                 <label for="momento_fin" class="block text-sm font-medium text-gray-700">Fin</label>
-                <input type="datetime-local" id="momento_fin" name="momento_fin" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <input type="datetime-local" id="momento_fin" name="momento_fin" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" readonly>
             </div>
             <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Guardar</button>
         </form>
